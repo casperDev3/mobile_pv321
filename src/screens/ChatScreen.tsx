@@ -5,12 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
+  Alert, StatusBar,
 } from 'react-native';
 import {useState, useEffect} from 'react';
 // components
 import SentMessage from '../components/SentMessage.tsx';
 import ReceivedMessage from '../components/ReceivedMessage.tsx';
+import openAi from "../utils/openAi.ts";
 
 const ChatScreen = () => {
   const [messages, setMessages] = useState<any[]>([]);
@@ -44,6 +45,9 @@ const ChatScreen = () => {
   }, [enteredText]);
 
   function handleSendMessage() {
+    //TODO: Need delete
+    // openAi().then(r => console.log(r));
+
     if (enteredText.length > 0) {
       const msg_obj = {
         txt: enteredText,
@@ -59,8 +63,9 @@ const ChatScreen = () => {
 
   return (
     <>
+      <StatusBar barStyle="light-content" backgroundColor={"brown"} />
       <View style={styles.headerArea}>
-        <Text>Chat AI</Text>
+        <Text style={styles.headerArea_text}>Chat AI</Text>
       </View>
       <ScrollView style={styles.messageArea}>
         {messages?.map((item, index) => {
@@ -76,9 +81,15 @@ const ChatScreen = () => {
         })}
       </ScrollView>
       <View style={styles.inputArea}>
-        <TextInput value={enteredText} onChangeText={setEnteredText} />
-        <TouchableOpacity onPress={handleSendMessage}>
-          <Text>Send</Text>
+        <TextInput
+          style={styles.inputArea_enter}
+          value={enteredText}
+          onChangeText={setEnteredText}
+        />
+        <TouchableOpacity
+          style={styles.inputArea_btn}
+          onPress={handleSendMessage}>
+          <Text style={styles.inputArea_btn_text}>-{'>'}</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -87,16 +98,41 @@ const ChatScreen = () => {
 
 const styles = StyleSheet.create({
   inputArea: {
-    borderWidth: 2,
-    borderColor: 'green',
+    // borderWidth: 2,
+    // borderColor: 'green',
+    flexDirection: 'row',
   },
   messageArea: {
-    borderWidth: 2,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'red',
+    paddingHorizontal: 16,
   },
   headerArea: {
-    borderWidth: 2,
-    borderColor: 'yellow',
+    // borderWidth: 2,
+    // borderColor: 'yellow',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: 'brown',
+    marginBottom: 16,
+  },
+  headerArea_text: {
+    color: 'white',
+    fontSize: 18,
+  },
+  inputArea_enter: {
+    backgroundColor: '#f3ecec',
+    minWidth: '80%',
+  },
+  inputArea_btn: {
+    backgroundColor: 'green',
+    width: '20%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputArea_btn_text: {
+    color: 'white',
+    fontSize: 28,
   },
 });
 

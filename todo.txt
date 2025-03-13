@@ -1,0 +1,2 @@
+1. AI key OpenAI
+2. Navigation Fix
