@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useState, useEffect} from 'react';
 import api from '../utils/api.ts';
 import Statistics from '../components/Statistics.tsx';
@@ -15,7 +15,7 @@ const HomeScreen = () => {
   return (
     <>
       <Statistics />
-      <View>
+      <ScrollView>
         {products.length > 0 &&
           products.map(
             (
@@ -26,7 +26,7 @@ const HomeScreen = () => {
               // i: Key | null | undefined,
             ) => <ProductCard product={product} key={product.id} />,
           )}
-      </View>
+      </ScrollView>
     </>
   );
 };
