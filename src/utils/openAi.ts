@@ -9,8 +9,9 @@ const openAi = async (): Promise<void> => {
         instructions: 'You are a coding assistant that talks like a pirate',
         input: 'Are semicolons optional in JavaScript?',
     });
-    console.log('OpenAi');
+    console.log('OpenAi990');
     console.log("__r", response);
+
 
     console.log(response.output_text);
 };
