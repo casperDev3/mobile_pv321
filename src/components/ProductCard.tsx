@@ -1,12 +1,18 @@
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {addToFavorite} from '../store/slices/favoriteSlice.ts';
 
 const ProductCard = ({product}: any) => {
+  const dispatch = useDispatch();
   return (
     <>
       <View style={styles.card} key={product.id}>
         <Text style={styles.text}>{product.title}</Text>
-        <TouchableOpacity>
-          <Text style={styles.favText}>Favorite</Text>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(addToFavorite(product.id));
+          }}>
+          <Text style={styles.favText}>Add to Favorite</Text>
         </TouchableOpacity>
       </View>
     </>

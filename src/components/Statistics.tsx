@@ -1,7 +1,7 @@
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {increment} from '../store/slices/favoriteSlice.ts';
 import {RootState} from '../store';
+import {clearFavorite} from '../store/slices/favoriteSlice.ts';
 
 const Statistics = () => {
   const dispatch = useDispatch();
@@ -11,11 +11,26 @@ const Statistics = () => {
   return (
     <>
       <View style={styles.container}>
+        {/* -- Favorite -- */}
         <Text style={styles.title}>Statistics</Text>
-        <Text style={styles.favorite}>In Favorite List: {favProducts.length}</Text>
-        <TouchableOpacity onPress={() => dispatch(increment())}>
-          <Text>Increment</Text>
+        <Text style={styles.favorite}>
+          In Favorite List QTY: {favProducts.length}
+        </Text>
+        <Text style={styles.favorite}>
+          In Favorite List IDs:{' '}
+          {favProducts.map(id => (
+            <Text key={id}>{id}, </Text>
+          ))}
+        </Text>
+        <TouchableOpacity
+          style={{
+            marginBottom: 8,
+          }}
+          onPress={() => dispatch(clearFavorite())}>
+          <Text>Clear All Favorites</Text>
         </TouchableOpacity>
+        {/* -- Favorite -- */}
+
         <Text style={styles.cart}>In Cart List: 1</Text>
       </View>
     </>
