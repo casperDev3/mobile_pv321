@@ -5,23 +5,27 @@ import React from 'react';
 // import ChatScreen from './src/screens/ChatScreen.tsx';
 import {SafeAreaView, StatusBar} from 'react-native';
 import HomeScreen from './src/screens/HomeScreen.tsx';
+import {Provider} from 'react-redux';
+import {store} from './src/store';
 
 // import PacmanGame from "./src/screens/PacmanGame.tsx";
 
 function App(): React.JSX.Element {
   return (
     <>
-      {/*<NavigationContainer>*/}
-      <StatusBar
-        barStyle="dark-content"
-        hidden={false}
-        backgroundColor={'#fff'}
-      />
-      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-        {/*<AppNavigation />*/}
-        <HomeScreen />
-      </SafeAreaView>
-      {/*</NavigationContainer>*/}
+      <Provider store={store}>
+        {/*<NavigationContainer>*/}
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor={'#fff'}
+        />
+        <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+          {/*<AppNavigation />*/}
+          <HomeScreen />
+        </SafeAreaView>
+        {/*</NavigationContainer>*/}
+      </Provider>
     </>
   );
 }
