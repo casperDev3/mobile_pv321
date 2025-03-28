@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { ScrollView, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import api from '../utils/api.ts';
 import Statistics from '../components/Statistics.tsx';
