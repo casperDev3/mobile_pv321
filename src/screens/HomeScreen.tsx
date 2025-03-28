@@ -1,10 +1,10 @@
-import {ScrollView, View} from 'react-native';
+import {Button, ScrollView, View} from 'react-native';
 import {useState, useEffect} from 'react';
 import api from '../utils/api.ts';
 import Statistics from '../components/Statistics.tsx';
 import ProductCard from '../components/ProductCard.tsx';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: any) => {
   const [products, setProducts] = useState<any>([]);
   // test();
   useEffect(() => {
@@ -14,6 +14,7 @@ const HomeScreen = () => {
   }, []);
   return (
     <>
+      <Button title={'Про нас'} onPress={() => navigation.navigate('About')} />
       <Statistics />
       <ScrollView>
         {products.length > 0 &&
@@ -30,6 +31,5 @@ const HomeScreen = () => {
     </>
   );
 };
-
 
 export default HomeScreen;
