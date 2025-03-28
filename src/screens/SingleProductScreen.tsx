@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -20,9 +20,13 @@ const SingleProductScreen = ({route}: SPScreenProps) => {
   const {productId} = route.params;
   const dispatch = useDispatch();
   const [product, setProduct] = useState<any>(null);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     api.getOne('products', productId).then(setProduct).catch(console.error);
+    // TODO: Need scroll to start screen
+    // @ts-ignore
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
   }, [productId]);
 
   if (!product) return null;

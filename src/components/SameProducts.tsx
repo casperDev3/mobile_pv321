@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import api from '../utils/api.ts';
 import ProductCard from './ProductCard.tsx';
+import {useNavigation} from "@react-navigation/native";
 
 const SameProducts = ({ category }: any) => {
     const [products, setProducts] = useState([]);
+    const navigation = useNavigation();
 
     useEffect(() => {
         api.getAll(`products/category/${category}`).then((data: any) => {
             setProducts(data);
         });
+        // scroll to Top
+
     }, [category]);
 
     return (
@@ -19,7 +23,7 @@ const SameProducts = ({ category }: any) => {
                 {products.length > 0
                     ? products.map((product: any) => (
                         <View style={styles.cardWrapper} key={product.id}>
-                            <ProductCard product={product} />
+                            <ProductCard navigation={navigation} product={product} />
                         </View>
                     ))
                     : <Text style={styles.noProducts}>Товари відсутні</Text>}
