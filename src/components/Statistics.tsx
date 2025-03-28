@@ -1,57 +1,82 @@
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../store';
-import {clearFavorite} from '../store/slices/favoriteSlice.ts';
+import React from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { clearFavorite } from '../store/slices/favoriteSlice.ts';
 
 const Statistics = () => {
   const dispatch = useDispatch();
-  const favProducts = useSelector(
-    (state: RootState) => state.favorite.products,
-  );
-  return (
-    <>
-      <View style={styles.container}>
-        {/* -- Favorite -- */}
-        <Text style={styles.title}>Statistics</Text>
-        <Text style={styles.favorite}>
-          In Favorite List QTY: {favProducts.length}
-        </Text>
-        <Text style={styles.favorite}>
-          In Favorite List IDs:{' '}
-          {favProducts.map(id => (
-            <Text key={id}>{id}, </Text>
-          ))}
-        </Text>
-        <TouchableOpacity
-          style={{
-            marginBottom: 8,
-          }}
-          onPress={() => dispatch(clearFavorite())}>
-          <Text>Clear All Favorites</Text>
-        </TouchableOpacity>
-        {/* -- Favorite -- */}
+  const favProducts = useSelector((state: RootState) => state.favorite.products);
 
-        <Text style={styles.cart}>In Cart List: 1</Text>
+  return (
+      <View style={styles.container}>
+        <Text style={styles.title}>📊 Статистика</Text>
+
+        <View style={styles.statBlock}>
+          <Text style={styles.statLabel}>❤️ Улюблені товари:</Text>
+          <Text style={styles.statValue}>{favProducts.length}</Text>
+        </View>
+
+        <View style={styles.statBlock}>
+          <Text style={styles.statLabel}>🆔 ID товарів:</Text>
+          <Text style={styles.statValue}>{favProducts.join(', ') || '-'}</Text>
+        </View>
+
+        <TouchableOpacity style={styles.clearButton} onPress={() => dispatch(clearFavorite())}>
+          <Text style={styles.clearButtonText}>Очистити улюблені</Text>
+        </TouchableOpacity>
+
+        <View style={styles.statBlock}>
+          <Text style={styles.statLabel}>🛒 Товарів у кошику:</Text>
+          <Text style={styles.statValue}>1</Text>
+        </View>
       </View>
-    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 6,
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 16,
+    margin: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
   },
-  favorite: {
-    fontSize: 14,
-    color: 'red',
+  statBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
   },
-  cart: {
+  statLabel: {
     fontSize: 14,
-    color: 'green',
+    color: '#555',
+  },
+  statValue: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#000',
+  },
+  clearButton: {
+    backgroundColor: '#FF6B6B',
+    paddingVertical: 8,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 12,
+  },
+  clearButtonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
 
